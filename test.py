@@ -88,6 +88,22 @@ for Loop in range(0, No_Iterations):
 
     SIR=np.vstack((SIR,SIRdB))
 
+SIR=np.delete(SIR,0,0) # 0번째 행에 0을 지워라
+SIR=SIR.flatten() # 1차원배열로 바꿈
+
+hist,bin_left,patch=plt.hist(SIR,bins=100)
+pdf=hist/np.size(SIR)
+bin_left[:-1] # max 제거
+plt.plot(bin_left[:-1],pdf,'ro-',lw=2)
+cdf=np.cumsum(pdf)
+plt.plot(bin_left[:-1],cdf,'bo-',lw=2)
+plt.semilogy(bin_left[:-1],cdf,color='r',lw=2) # 로그를 취하면 소수점 부분이 확실하게 보이는 효과가있음.
+# cdf를 이용하면 뭐가 더 좋은 성능을 나타내는지 알기 쉽다.
+
+
+
+
+
 PI0SUM = sum(matrixP[1:9, 0])
 PI1SUM = sum(matrixP[1:9, 1])
 PI2SUM = sum(matrixP[1:9, 2])
